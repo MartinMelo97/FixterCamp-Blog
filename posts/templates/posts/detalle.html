@@ -1,0 +1,54 @@
+{%extends 'base.html'%}
+
+
+{%block estilos%}
+img{
+	width:100%;
+}
+
+.boton{
+	border-radius.30%;
+	border: 1px solid green;
+}
+
+.img-user{
+	width:100px;
+	height:100px;
+	border-radius:50%;
+}
+
+.boton:hover{
+	border-color; white;
+	background: green;		
+}
+{%endblock estilos%}
+{%block content%}
+	<h1>{{post.titulo}}</h1>
+	<p>{{post.cuerpo}}</p>
+	<img src="/media/{{post.imagen}}">
+	<h4>{{post.autor}}</h4>
+	<h2>Escribe un comentario sabrosón!</h5>
+	<p>{{request.user}}<img src="{{request.user.profile.photo.url}}" class="img-user"></p>
+	<form action="." method="post">
+		{%csrf_token%}
+		{{comment_form.as_p}}
+		<input type="submit" name="Comentar" class="boton">
+	</form>
+	<h1>Comentarios:</h1>
+	{%for comment in post.comentarios.all%}
+		<h3>{{comment.autor}}</h3>
+		<p>{{comment.cuerpo}}</p>
+		<img src="{{comment.autor.profile.photo.url}}" class="img-user">
+		<span>{{comment.fecha}}</span>
+		<hr>
+	{%endfor%}
+
+	<div>
+		<h3>Publicaciones relacionadas:</h3>
+		{% for p in  posts_similares%}
+				<p><a href="{{p.get_absolute_url}}">{{p.titulo}}</a></p>
+		{% empty %}
+		<h4>Este tema es demasiado novedoso! baia baia</h4>
+		{% endfor %}
+	</div>
+{%endblock content%}

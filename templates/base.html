@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+	{%block titulo%}
+	Hola
+	{%endblock titulo%}
+	</title>
+	<style type="text/css">
+	.error{
+		background: red;
+		width: 100%;
+		color:white;
+	}
+
+	.success{
+		background: green;
+		width: 100%;
+		color:white;
+	}
+	{%block estilos%}
+	{%endblock estilos%}
+	</style>
+</head>
+<body>
+
+	{%if request.user.is_authenticated%}
+	<a href="{%url 'profile'%}"><button>Tu perfil</button></a>
+	<a href="{%url 'logout'%}"><button>Cerrar sesión</button></a>
+	{%else%}
+	<a href="{%url 'login'%}"><button>Iniciar sesion</button></a>
+	{%endif%}
+	{%if messages%}
+	{%for message in messages%}
+	<h5 class="{{message.tags}}">{{message}}</h5>
+	{%endfor%}
+	{%endif%}
+<h1>El mejor día es</h1>
+{%block content%}
+{%endblock content%}
+</body>
+</html>
